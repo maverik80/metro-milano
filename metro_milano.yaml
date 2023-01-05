@@ -1,0 +1,356 @@
+
+sensor:
+
+  - platform: rest
+    name: comunicazione servizio
+    resource: https://alert.atm.it/it
+    json_attributes:
+      - alert_text
+    value_template: "OK"
+    
+multiscrape:
+  - name: metro scraper
+    resource: https://www.atm.it/it/Pagine/default.aspx
+    scan_interval: 120
+    sensor:
+##############################    LINEA   1   ####################################################################    
+      - unique_id: m1_sesto_fs
+        name: M1 Sesto FS
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M1_Sesto"
+
+      - unique_id: m1_Bisceglie
+        name: M! Bisceglie
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M1_Bisceglie"
+
+      - unique_id: m1_Rho_fiera_milano
+        name: M1 Rho Fiera Milano
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M1_Rho"
+        
+##############################    LINEA   2   ####################################################################  
+        
+      - unique_id: m2_gessate
+        name: M2 Gessate
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M2_Gessate"
+
+      - unique_id: m2_cologno_nord
+        name: M2 Cologno Nord
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M2_Cologno"
+        
+      - unique_id: m2_p_za_abbiategrasso
+        name: M2 P.za Abbiategrasso
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M2_Abbiategrasso"
+        
+      - unique_id: m2_assago_forum
+        name: M2 Assago Forum
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M2_Assago"     
+
+##############################    LINEA   3   ####################################################################  
+
+      - unique_id: m3_comasina
+        name: M3 Comasina
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M3_Comasina"        
+        
+      - unique_id: m3_san_donato
+        name: M3 San Donato
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M3_SanDonato" 
+        
+##############################    LINEA   4   ####################################################################
+
+      - unique_id: m4_dateo
+        name: M4 Dateo
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M4_Destinazione"
+        
+      - unique_id: m4_linate
+        name: M4 Linate
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M4_Linate"
+        
+##############################    LINEA   5   ####################################################################
+
+      - unique_id: m5_bignami
+        name: M5 Bignami
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M5_Bignami"
+        
+      - unique_id: m5_san_siro_stadio
+        name: M5 San Siro Stadio
+        select: "#ctl00_SPWebPartManager1_g_9b06731f_460e_4533_a288_117c67e46987_ctl00_lb_M5_Stadio"
+
+##############################        TEMPLATE SENSOR        #####################################################
+template:
+  sensor:
+  
+    - unique_id: controllo metro l1
+      state: |
+          {%- set metro = [
+            states.sensor.m1_sesto_fs,
+            states.sensor.m1_rho_fiera_milano,
+            states.sensor.m1_bisceglie,
+          ] %}
+
+          {%- set metro_on = metro | selectattr('state','!=','Regolare') | list %}
+          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name') | join(', ') %}
+
+          {%- if (metro_on | length > 0) and (switches_on | length == 0) -%}
+            {{ metro_name }} è Sospesa-Rallentata
+          {%- else %}
+            Regolare
+          {%- endif -%}  
+          
+    - unique_id: controllo metro l2
+      state: |
+          {%- set metro = [
+            states.sensor.m2_gessate,
+            states.sensor.m2_cologno_nord,
+            states.sensor.m2_assago_forum,
+            states.sensor.m2_p_za_abbiategrasso,
+            
+          ] %}
+
+          {%- set metro_on = metro | selectattr('state','!=','Regolare') | list %}
+          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name') | join(', ') %}
+
+          {%- if (metro_on | length > 0) and (switches_on | length == 0) -%}
+            {{ metro_name }} è Sospesa-Rallentata
+          {%- else %}
+            Regolare
+          {%- endif -%}  
+
+    - unique_id: controllo metro l3
+      state: |
+          {%- set metro = [
+            states.sensor.m3_san_donato,
+            states.sensor.m3_comasina,
+          ] %}
+
+          {%- set metro_on = metro | selectattr('state','!=','Regolare') | list %}
+          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name') | join(', ') %}
+
+          {%- if (metro_on | length > 0) and (switches_on | length == 0) -%}
+            {{ metro_name }} Sospesa-Rallentata
+          {%- else %}
+            Regolare
+          {%- endif -%}  
+
+    - unique_id: controllo metro l4
+      state: |
+          {%- set metro = [
+            states.sensor.m4_linate,
+            states.sensor.m4_dateo,
+          ] %}
+
+          {%- set metro_on = metro | selectattr('state','!=','Regolare') | list %}
+          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name') | join(', ') %}
+
+          {%- if (metro_on | length > 0) and (switches_on | length == 0) -%}
+            {{ metro_name }} Sospesa-Rallentata
+          {%- else %}
+            Regolare
+          {%- endif -%}  
+          
+    - unique_id: controllo metro l5
+      state: |
+          {%- set metro = [
+            states.sensor.m5_san_siro_stadio,
+            states.sensor.m5_bignami,
+          ] %}
+
+          {%- set metro_on = metro | selectattr('state','!=','Regolare') | list %}
+          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name') | join(', ') %}
+
+          {%- if (metro_on | length > 0) and (switches_on | length == 0) -%}
+            {{ metro_name }} è Sospesa-Rallentata
+          {%- else %}
+            Regolare
+          {%- endif -%}  
+    
+    - unique_id: icon m1
+      state: |
+          {% if states("sensor.template_controllo_metro_l1") != "Regolare" %}
+            on
+          {% elif states("sensor.template_controllo_metro_l1") == "Regolare" %}
+            off
+          {% else %} ???
+          {% endif %}      
+          
+    - unique_id: icon m2
+      state: |
+          {% if states("sensor.template_controllo_metro_l2") != "Regolare" %}
+            on
+          {% elif states("sensor.template_controllo_metro_l2") == "Regolare" %}
+            off
+          {% else %} ???
+          {% endif %}      
+          
+    - unique_id: icon m3
+      state: |
+          {% if states("sensor.template_controllo_metro_l3") != "Regolare" %}
+            on
+          {% elif states("sensor.template_controllo_metro_l3") == "Regolare" %}
+            off
+          {% else %} ???
+          {% endif %}     
+
+    - unique_id: icon m4
+      state: |
+          {% if states("sensor.template_controllo_metro_l4") != "Regolare" %}
+            on
+          {% elif states("sensor.template_controllo_metro_l4") == "Regolare" %}
+            off
+          {% else %} ???
+          {% endif %}     
+
+    - unique_id: icon m5
+      state: |
+          {% if states("sensor.template_controllo_metro_l5") != "Regolare" %}
+            on
+          {% elif states("sensor.template_controllo_metro_l5") == "Regolare" %}
+            off
+          {% else %} ???
+          {% endif %}                
+###################################    AUTOMATION     #########################################       
+automation:
+- id: ' metro'
+  alias: metro
+  mode: parallel
+  description: test metro 2
+  trigger:
+  - platform: state
+    entity_id: sensor.template_controllo_metro_l1
+    not_from:
+      - "unknown"
+      - "unavailable"
+      - "Sconosciuto"
+    id: linea1
+    for: 
+      minutes: 1
+
+  - platform: state
+    entity_id: sensor.template_controllo_metro_l2
+    not_from:
+      - "unknown"
+      - "unavailable"
+      - "Sconosciuto"
+    id: linea2
+    for: 
+      minutes: 1
+
+  - platform: state
+    entity_id: sensor.template_controllo_metro_l3
+    not_from:
+      - "unknown"
+      - "unavailable"
+      - "Sconosciuto"
+    id: linea3
+    for: 
+      minutes: 1
+
+  - platform: state
+    entity_id: sensor.template_controllo_metro_l4
+    not_from:
+      - "unknown"
+      - "unavailable"
+      - "Sconosciuto"
+    id: linea4
+    for: 
+      minutes: 1
+
+  - platform: state
+    entity_id: sensor.template_controllo_metro_l5
+    not_from:
+      - "unknown"
+      - "unavailable"
+      - "Sconosciuto"
+    id: linea5
+    for: 
+      minutes: 1
+
+  condition: []
+  action:
+  - choose:
+    - conditions:
+        - condition: trigger
+          id: linea1
+      sequence:
+      - service: script.my_notify
+        data:
+          call_no_annuncio: true
+          title: ATTENZIONE
+          image: /config/www/atm/m1.png
+          message: >
+            {% if states("sensor.template_controllo_metro_l1") != "Regolare" %}
+              La Metropolitana {{states('sensor.template_controllo_metro_l1')}}
+            {% elif states("sensor.template_controllo_metro_l1") == "Regolare" %}
+              La Metropolitana M1 è nuovamente Regolare
+            {% else %}
+            {% endif %}
+
+  - choose:
+    - conditions:
+        - condition: trigger
+          id: linea2
+      sequence:
+      - service: script.my_notify
+        data:
+          call_no_annuncio: true
+          title: ATTENZIONE
+          image: /config/www/atm/m2.png
+          message: >
+            {% if states("sensor.template_controllo_metro_l2") != "Regolare" %}
+              La Metropolitana {{states('sensor.template_controllo_metro_l2')}}
+            {% elif states("sensor.template_controllo_metro_l2") == "Regolare" %}
+              La Metropolitana M2 è nuovamente Regolare
+            {% else %}
+            {% endif %}
+
+  - choose:
+    - conditions:
+        - condition: trigger
+          id: linea3
+      sequence:
+      - service: script.my_notify
+        data:
+          call_no_annuncio: true
+          title: ATTENZIONE
+          image: /config/www/atm/m3.png
+          message: >
+            {% if states("sensor.template_controllo_metro_l3") != "Regolare" %}
+              La Metropolitana {{states('sensor.template_controllo_metro_l3')}}
+            {% elif states("sensor.template_controllo_metro_l3") == "Regolare" %}
+              La Metropolitana M3 è nuovamente Regolare
+            {% else %}
+            {% endif %}
+
+  - choose:
+    - conditions:
+        - condition: trigger
+          id: linea4
+      sequence:
+      - service: script.my_notify
+        data:
+          call_no_annuncio: true
+          title: ATTENZIONE
+          image: /config/www/atm/m4.png
+          message: >
+            {% if states("sensor.template_controllo_metro_l4") != "Regolare" %}
+              La Metropolitana {{states('sensor.template_controllo_metro_l4')}}
+            {% elif states("sensor.template_controllo_metro_l4") == "Regolare" %}
+              La Metropolitana M4 è nuovamente Regolare
+            {% else %}
+            {% endif %}
+
+  - choose:
+    - conditions:
+        - condition: trigger
+          id: linea5
+      sequence:
+      - service: script.my_notify
+        data:
+          call_no_annuncio: true
+          title: ATTENZIONE
+          image: /config/www/atm/m5.png
+          message: >
+            {% if states("sensor.template_controllo_metro_l5") != "Regolare" %}
+              La Metropolitana {{states('sensor.template_controllo_metro_l5')}}
+            {% elif states("sensor.template_controllo_metro_l5") == "Regolare" %}
+              La Metropolitana M5 è nuovamente Regolare
+            {% else %}
+            {% endif %}
