@@ -1,0 +1,387 @@
+type: vertical-stack
+cards:
+  - type: custom:button-card
+    color_type: label-card
+    color: white
+    styles:
+      card:
+        - background-image: url("/local/atm/atm.png"
+        - background-size: contain
+        - background-repeat: no-repeat
+        - aspect-ratio: 4/1
+  - type: horizontal-stack
+    cards:
+      - type: custom:button-card
+        entity: sensor.template_icon_m1
+        show_icon: false
+        show_state: false
+        show_name: false
+        state:
+          - value: 'on'
+            styles:
+              card:
+                - animation:
+                    - flasher 2s linear infinite
+        extra_styles: |
+          @keyframes flasher {
+               50% {background: radial-gradient(rgb 255, 0, 0, 10%) 20%, rgb(255, 0, 0, 50%));
+               box-shadow: 0px 0px 50px rgb(255, 0, 0, 100%);
+               border: 1px solid rgb(255, 0, 0)
+               }
+        styles:
+          card:
+            - background-image: url("/local/atm/m1.png"
+            - background-size: cover
+            - aspect-ratio: 1.5/1
+        tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              style: |
+                --popup-min-width: 600px;
+              title: Stato Linea Metro 1
+              timeout: 30000
+              dismissable: false
+              right_button: Indietro
+              content:
+                type: entities
+                entities:
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m1_sesto_fs
+                    name: M1 Sesto F.S.
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m1_rho_fiera_milano
+                    name: M1 Rho Fiera Milano
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m1_bisceglie
+                    name: M1 Bisceglie
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+      - type: custom:button-card
+        entity: sensor.template_icon_m2
+        show_icon: false
+        show_state: false
+        show_name: false
+        state:
+          - value: 'on'
+            styles:
+              card:
+                - animation:
+                    - flasher 2s linear infinite
+        extra_styles: |
+          @keyframes flasher {
+               50% {background: radial-gradient(rgb 40, 142, 65, 10%) 20%, rgb(40, 142, 65, 50%));
+               box-shadow: 0px 0px 50px rgb(40, 142, 65, 100%);
+               border: 2px solid rgb(40, 142, 65)
+               }
+        styles:
+          card:
+            - background-image: url("/local/atm/m2.png"
+            - background-size: cover
+            - aspect-ratio: 1.5/1
+        tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              style: |
+                --popup-min-width: 600px;
+              title: Stato Linea Metro 2
+              timeout: 30000
+              dismissable: false
+              right_button: Indietro
+              content:
+                type: entities
+                entities:
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m2_gessate
+                    name: M2 Gessate
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m2_cologno_nord
+                    name: M2 Cologno Nord
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m2_assago_forum
+                    name: M2 Assago Forum
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m2_p_za_abbiategrasso
+                    name: M2 Pza. Abbiategrasso
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+      - type: custom:button-card
+        entity: sensor.template_icon_m3
+        show_icon: false
+        show_state: false
+        show_name: false
+        state:
+          - value: 'on'
+            styles:
+              card:
+                - animation:
+                    - flasher 2s linear infinite
+        extra_styles: |
+          @keyframes flasher {
+               50% {background: radial-gradient(rgb 250, 175, 0, 10%) 20%, rgb(250, 175, 0, 50%));
+               box-shadow: 0px 0px 50px rgb(250, 175, 0, 100%);
+               border: 1px solid rgb(250, 175, 0)
+               }
+        styles:
+          card:
+            - background-image: url("/local/atm/m3.png"
+            - background-size: cover
+            - aspect-ratio: 1.5/1
+        tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              style: |
+                --popup-min-width: 600px;
+              title: Stato Linea Metro 3
+              timeout: 30000
+              dismissable: false
+              right_button: Indietro
+              content:
+                type: entities
+                entities:
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m3_comasina
+                    name: M3 Comasina
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m3_san_donato
+                    name: M3 San Donato
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+      - type: custom:button-card
+        entity: sensor.template_icon_m4
+        show_icon: false
+        show_state: false
+        show_name: false
+        state:
+          - value: 'on'
+            styles:
+              card:
+                - animation:
+                    - flasher 2s linear infinite
+        extra_styles: |
+          @keyframes flasher {
+               50% {background: radial-gradient(rgb 162, 115, 218, 10%) 20%, rgb(162, 115, 218, 50%));
+               box-shadow: 0px 0px 50px rgb(162, 115, 218, 100%);
+               border: 1px solid rgb(162, 115, 218)
+               }
+        styles:
+          card:
+            - background-image: url("/local/atm/m4.png"
+            - background-size: cover
+            - aspect-ratio: 1.5/1
+        tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              style: |
+                --popup-min-width: 600px;
+              title: Stato Linea Metro 4
+              timeout: 30000
+              dismissable: false
+              right_button: Indietro
+              content:
+                type: entities
+                entities:
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m4_linate
+                    name: M4 Linate
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m4_dateo
+                    name: M4 Dateo
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+      - type: custom:button-card
+        entity: sensor.template_icon_m5
+        show_icon: false
+        show_state: false
+        show_name: false
+        state:
+          - value: 'on'
+            styles:
+              card:
+                - animation:
+                    - flasher 2s linear infinite
+        extra_styles: |
+          @keyframes flasher {
+               50% {background: radial-gradient(rgb 162, 115, 218, 10%) 20%, rgb(162, 115, 218, 50%));
+               box-shadow: 0px 0px 50px rgb(162, 115, 218, 100%);
+               border: 1px solid rgb(162, 115, 218)
+               }
+        styles:
+          card:
+            - background-image: url("/local/atm/m5.png"
+            - background-size: cover
+            - aspect-ratio: 1.5/1
+        tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              style: |
+                --popup-min-width: 600px;
+              title: Stato Linea Metro 5
+              timeout: 30000
+              dismissable: false
+              right_button: Indietro
+              content:
+                type: entities
+                entities:
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m5_bignami
+                    name: M5 Bignami
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+                  - entity: sensor.m5_san_siro_stadio
+                    name: M5 San Siro Stadio
+                    icon: mdi:train
+                  - style:
+                      background: '#62717b'
+                      height: 1px
+                      margin-left: auto
+                      margin-right: auto
+                    type: divider
+      - type: custom:button-card
+        entity: switch.kitchen_off
+        color_type: card
+        color: grey
+        styles:
+          card:
+            - background-image: url("/local/atm/info.png"
+            - background-size: contain
+            - background-position: center
+            - background-repeat: no-repeat
+            - aspect-ratio: 1.5/1
+        tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              style: |
+                --popup-min-width: 600px;
+              title: Controllo stato Linee
+              dismissable: false
+              right_button: Indietro
+              content:
+                type: markdown
+                content: >-
+                  {{ state_attr('sensor.comunicazione_servizio', 'alert_text') |
+                  regex_replace(find='<div
+                  class="content">|<p>|</p>|<strong>|</strong>|&nbsp;|</div>',replace='')
+                  }}
+  - type: vertical-stack
+    cards:
+      - type: custom:button-card
+        view_layout: null
+        name: >
+          [[[return `<div style='display: flip;display: -webkit-flip;'>
+          <div><span style='color: yellow;'>INFO:<span style='color: orange;'>
+          A.T.M.&nbsp;</div></span> <marquee> <span style='color: orange;'>
+          <span style='color: red;'> LINEA M1: <span style='color:
+          white;'><u>${states['sensor.template_controllo_metro_l1'].state}</u> -
+          - -  <span style='color: green;'> LINEA M2: <span style='color:
+          white;'><u>${states['sensor.template_controllo_metro_l2'].state}</u> -
+          - -  <span style='color: yellow;'> LINEA M3: <span style='color:
+          white;'><u>${states['sensor.template_controllo_metro_l3'].state}</u> -
+          - -  <span style='color: blue;'> LINEA M4: <span style='color:
+          white;'><u>${states['sensor.template_controllo_metro_l4'].state}</u> -
+          - - <span style='color: #ad97c4;'> LINEA M5: <span style='color:
+          white;'><U>${states['sensor.template_controllo_metro_l5'].state}</u>  
+          </span><\marquee>`]]]
