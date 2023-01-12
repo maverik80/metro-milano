@@ -211,146 +211,29 @@ automation:
 - id: ' metro'
   alias: metro
   mode: parallel
-  description: test metro 2
   trigger:
   - platform: state
-    entity_id: sensor.template_controllo_metro_l1
+    entity_id: 
+      - sensor.template_controllo_metro_l1
+      - sensor.template_controllo_metro_l2
+      - sensor.template_controllo_metro_l3
+      - sensor.template_controllo_metro_l4
+      - sensor.template_controllo_metro_l5
     not_from:
       - "unknown"
       - "unavailable"
       - "Sconosciuto"
-    id: linea1
     for: 
       minutes: 1
-
-  - platform: state
-    entity_id: sensor.template_controllo_metro_l2
-    not_from:
-      - "unknown"
-      - "unavailable"
-      - "Sconosciuto"
-    id: linea2
-    for: 
-      minutes: 1
-
-  - platform: state
-    entity_id: sensor.template_controllo_metro_l3
-    not_from:
-      - "unknown"
-      - "unavailable"
-      - "Sconosciuto"
-    id: linea3
-    for: 
-      minutes: 1
-
-  - platform: state
-    entity_id: sensor.template_controllo_metro_l4
-    not_from:
-      - "unknown"
-      - "unavailable"
-      - "Sconosciuto"
-    id: linea4
-    for: 
-      minutes: 1
-
-  - platform: state
-    entity_id: sensor.template_controllo_metro_l5
-    not_from:
-      - "unknown"
-      - "unavailable"
-      - "Sconosciuto"
-    id: linea5
-    for: 
-      minutes: 1
-
-  condition: []
   action:
-  - choose:
-    - conditions:
-        - condition: trigger
-          id: linea1
-      sequence:
-      - service: script.my_notify
-        data:
-          call_no_annuncio: true
-          title: ATTENZIONE
-          image: /config/www/atm/m1.png
-          message: >
-            {% if states("sensor.template_controllo_metro_l1") != "Regolare" %}
-              La Metropolitana {{states('sensor.template_controllo_metro_l1')}}
-            {% elif states("sensor.template_controllo_metro_l1") == "Regolare" %}
-              La Metropolitana M1 è nuovamente Regolare
-            {% else %}
-            {% endif %}
-
-  - choose:
-    - conditions:
-        - condition: trigger
-          id: linea2
-      sequence:
-      - service: script.my_notify
-        data:
-          call_no_annuncio: true
-          title: ATTENZIONE
-          image: /config/www/atm/m2.png
-          message: >
-            {% if states("sensor.template_controllo_metro_l2") != "Regolare" %}
-              La Metropolitana {{states('sensor.template_controllo_metro_l2')}}
-            {% elif states("sensor.template_controllo_metro_l2") == "Regolare" %}
-              La Metropolitana M2 è nuovamente Regolare
-            {% else %}
-            {% endif %}
-
-  - choose:
-    - conditions:
-        - condition: trigger
-          id: linea3
-      sequence:
-      - service: script.my_notify
-        data:
-          call_no_annuncio: true
-          title: ATTENZIONE
-          image: /config/www/atm/m3.png
-          message: >
-            {% if states("sensor.template_controllo_metro_l3") != "Regolare" %}
-              La Metropolitana {{states('sensor.template_controllo_metro_l3')}}
-            {% elif states("sensor.template_controllo_metro_l3") == "Regolare" %}
-              La Metropolitana M3 è nuovamente Regolare
-            {% else %}
-            {% endif %}
-
-  - choose:
-    - conditions:
-        - condition: trigger
-          id: linea4
-      sequence:
-      - service: script.my_notify
-        data:
-          call_no_annuncio: true
-          title: ATTENZIONE
-          image: /config/www/atm/m4.png
-          message: >
-            {% if states("sensor.template_controllo_metro_l4") != "Regolare" %}
-              La Metropolitana {{states('sensor.template_controllo_metro_l4')}}
-            {% elif states("sensor.template_controllo_metro_l4") == "Regolare" %}
-              La Metropolitana M4 è nuovamente Regolare
-            {% else %}
-            {% endif %}
-
-  - choose:
-    - conditions:
-        - condition: trigger
-          id: linea5
-      sequence:
-      - service: script.my_notify
-        data:
-          call_no_annuncio: true
-          title: ATTENZIONE
-          image: /config/www/atm/m5.png
-          message: >
-            {% if states("sensor.template_controllo_metro_l5") != "Regolare" %}
-              La Metropolitana {{states('sensor.template_controllo_metro_l5')}}
-            {% elif states("sensor.template_controllo_metro_l5") == "Regolare" %}
-              La Metropolitana M5 è nuovamente Regolare
-            {% else %}
-            {% endif %}
+  - service: script.my_notify
+    data:
+      call_no_annuncio: true
+      title: ATTENZIONE
+      image: "{{state_attr(trigger.entity_id , 'image')}}"
+      message: >
+        {% if states(trigger.entity_id) != "Regolare" %}
+          La Metropolitana {{states(trigger.entity_id)}}
+        {% elif states(trigger.entity_id) == "Regolare" %}
+          La Metropolitana {{state_attr(trigger.entity_id , 'friendly_name')}} è nuovamente Regolare
+        {% endif %}
