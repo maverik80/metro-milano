@@ -12,16 +12,16 @@ cards:
   - type: horizontal-stack
     cards:
       - type: custom:button-card
-        entity: sensor.template_icon_m1
+        entity: sensor.template_controllo_metro_l1
         show_icon: false
         show_state: false
         show_name: false
         state:
-          - value: 'on'
+          - value: Regolare
             styles:
               card:
                 - animation:
-                    - flasher 2s linear infinite
+                    - none
         extra_styles: |
           @keyframes flasher {
                50% {background: radial-gradient(rgb 255, 0, 0, 10%) 20%, rgb(255, 0, 0, 50%));
@@ -30,6 +30,8 @@ cards:
                }
         styles:
           card:
+            - animation:
+                - flasher 2s linear infinite
             - background-image: url("/local/atm/m1.png"
             - background-size: cover
             - aspect-ratio: 1.5/1
@@ -81,16 +83,16 @@ cards:
                       margin-right: auto
                     type: divider
       - type: custom:button-card
-        entity: sensor.template_icon_m2
+        entity: sensor.template_controllo_metro_l2
         show_icon: false
         show_state: false
         show_name: false
         state:
-          - value: 'on'
+          - value: Regolare
             styles:
               card:
                 - animation:
-                    - flasher 2s linear infinite
+                    - none
         extra_styles: |
           @keyframes flasher {
                50% {background: radial-gradient(rgb 40, 142, 65, 10%) 20%, rgb(40, 142, 65, 50%));
@@ -99,6 +101,8 @@ cards:
                }
         styles:
           card:
+            - animation:
+                - flasher 2s linear infinite
             - background-image: url("/local/atm/m2.png"
             - background-size: cover
             - aspect-ratio: 1.5/1
@@ -159,16 +163,16 @@ cards:
                       margin-right: auto
                     type: divider
       - type: custom:button-card
-        entity: sensor.template_icon_m3
+        entity: sensor.template_controllo_metro_l3
         show_icon: false
         show_state: false
         show_name: false
         state:
-          - value: 'on'
+          - value: Regolare
             styles:
               card:
                 - animation:
-                    - flasher 2s linear infinite
+                    - none
         extra_styles: |
           @keyframes flasher {
                50% {background: radial-gradient(rgb 250, 175, 0, 10%) 20%, rgb(250, 175, 0, 50%));
@@ -177,6 +181,8 @@ cards:
                }
         styles:
           card:
+            - animation:
+                - flasher 2s linear infinite
             - background-image: url("/local/atm/m3.png"
             - background-size: cover
             - aspect-ratio: 1.5/1
@@ -219,16 +225,16 @@ cards:
                       margin-right: auto
                     type: divider
       - type: custom:button-card
-        entity: sensor.template_icon_m4
+        entity: sensor.template_controllo_metro_l4
         show_icon: false
         show_state: false
         show_name: false
         state:
-          - value: 'on'
+          - value: Regolare
             styles:
               card:
                 - animation:
-                    - flasher 2s linear infinite
+                    - none
         extra_styles: |
           @keyframes flasher {
                50% {background: radial-gradient(rgb 162, 115, 218, 10%) 20%, rgb(162, 115, 218, 50%));
@@ -237,6 +243,8 @@ cards:
                }
         styles:
           card:
+            - animation:
+                - flasher 2s linear infinite
             - background-image: url("/local/atm/m4.png"
             - background-size: cover
             - aspect-ratio: 1.5/1
@@ -279,16 +287,16 @@ cards:
                       margin-right: auto
                     type: divider
       - type: custom:button-card
-        entity: sensor.template_icon_m5
+        entity: sensor.template_controllo_metro_l5
         show_icon: false
         show_state: false
         show_name: false
         state:
-          - value: 'on'
+          - value: Regolare
             styles:
               card:
                 - animation:
-                    - flasher 2s linear infinite
+                    - none
         extra_styles: |
           @keyframes flasher {
                50% {background: radial-gradient(rgb 162, 115, 218, 10%) 20%, rgb(162, 115, 218, 50%));
@@ -297,6 +305,8 @@ cards:
                }
         styles:
           card:
+            - animation:
+                - flasher 2s linear infinite
             - background-image: url("/local/atm/m5.png"
             - background-size: cover
             - aspect-ratio: 1.5/1
@@ -339,7 +349,7 @@ cards:
                       margin-right: auto
                     type: divider
       - type: custom:button-card
-        entity: switch.kitchen_off
+        entity: switch.xxxx
         color_type: card
         color: grey
         styles:
@@ -385,3 +395,4 @@ cards:
           - - <span style='color: #ad97c4;'> LINEA M5: <span style='color:
           white;'><U>${states['sensor.template_controllo_metro_l5'].state}</u>  
           </span><\marquee>`]]]
+
