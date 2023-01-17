@@ -79,133 +79,93 @@ template:
   sensor:
   
     - unique_id: controllo metro l1
+      name: M1
       state: |
           {%- set metro = [
             states.sensor.m1_sesto_fs,
             states.sensor.m1_rho_fiera_milano,
             states.sensor.m1_bisceglie,
           ] %}
-
           {%- set metro_on = metro | selectattr('state','!=','Regolare') | list %}
-          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name') | join(', ') %}
-
-          {%- if (metro_on | length > 0) and (switches_on | length == 0) -%}
+          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name')| join(', ') %}
+          {%- if (metro_on | length > 0) -%}
             {{ metro_name }} è Sospesa-Rallentata
           {%- else %}
             Regolare
           {%- endif -%}  
+      attributes:
+        image: /config/www/atm/m1.png
           
     - unique_id: controllo metro l2
+      name: M2
       state: |
           {%- set metro = [
             states.sensor.m2_gessate,
             states.sensor.m2_cologno_nord,
             states.sensor.m2_assago_forum,
             states.sensor.m2_p_za_abbiategrasso,
-            
           ] %}
-
           {%- set metro_on = metro | selectattr('state','!=','Regolare') | list %}
-          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name') | join(', ') %}
-
-          {%- if (metro_on | length > 0) and (switches_on | length == 0) -%}
+          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name')| join(', ') %}
+          {%- if (metro_on | length > 0) -%}
             {{ metro_name }} è Sospesa-Rallentata
           {%- else %}
             Regolare
           {%- endif -%}  
+      attributes:
+        image: /config/www/atm/m2.png
 
     - unique_id: controllo metro l3
+      name: M3
       state: |
           {%- set metro = [
             states.sensor.m3_san_donato,
             states.sensor.m3_comasina,
           ] %}
-
           {%- set metro_on = metro | selectattr('state','!=','Regolare') | list %}
-          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name') | join(', ') %}
-
-          {%- if (metro_on | length > 0) and (switches_on | length == 0) -%}
+          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name')| join(', ') %}
+          {%- if (metro_on | length > 0) -%}
             {{ metro_name }} Sospesa-Rallentata
           {%- else %}
             Regolare
           {%- endif -%}  
+      attributes:
+        image: /config/www/atm/m3.png
 
     - unique_id: controllo metro l4
+      name: M4
       state: |
           {%- set metro = [
             states.sensor.m4_linate,
             states.sensor.m4_dateo,
           ] %}
-
           {%- set metro_on = metro | selectattr('state','!=','Regolare') | list %}
-          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name') | join(', ') %}
-
-          {%- if (metro_on | length > 0) and (switches_on | length == 0) -%}
+          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name')| join(', ') %}
+          {%- if (metro_on | length > 0)  -%}
             {{ metro_name }} Sospesa-Rallentata
           {%- else %}
             Regolare
           {%- endif -%}  
+      attributes:
+        image: /config/www/atm/m4.png
           
     - unique_id: controllo metro l5
+      name: M5
       state: |
           {%- set metro = [
             states.sensor.m5_san_siro_stadio,
             states.sensor.m5_bignami,
           ] %}
-
           {%- set metro_on = metro | selectattr('state','!=','Regolare') | list %}
-          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name') | join(', ') %}
-
-          {%- if (metro_on | length > 0) and (switches_on | length == 0) -%}
+          {%- set metro_name = metro | selectattr('state','!=','Regolare') | map(attribute='name')| join(', ')  %}
+          {%- if (metro_on | length > 0)  -%}
             {{ metro_name }} è Sospesa-Rallentata
           {%- else %}
             Regolare
           {%- endif -%}  
-    
-    - unique_id: icon m1
-      state: |
-          {% if states("sensor.template_controllo_metro_l1") != "Regolare" %}
-            on
-          {% elif states("sensor.template_controllo_metro_l1") == "Regolare" %}
-            off
-          {% else %} ???
-          {% endif %}      
-          
-    - unique_id: icon m2
-      state: |
-          {% if states("sensor.template_controllo_metro_l2") != "Regolare" %}
-            on
-          {% elif states("sensor.template_controllo_metro_l2") == "Regolare" %}
-            off
-          {% else %} ???
-          {% endif %}      
-          
-    - unique_id: icon m3
-      state: |
-          {% if states("sensor.template_controllo_metro_l3") != "Regolare" %}
-            on
-          {% elif states("sensor.template_controllo_metro_l3") == "Regolare" %}
-            off
-          {% else %} ???
-          {% endif %}     
-
-    - unique_id: icon m4
-      state: |
-          {% if states("sensor.template_controllo_metro_l4") != "Regolare" %}
-            on
-          {% elif states("sensor.template_controllo_metro_l4") == "Regolare" %}
-            off
-          {% else %} ???
-          {% endif %}     
-
-    - unique_id: icon m5
-      state: |
-          {% if states("sensor.template_controllo_metro_l5") != "Regolare" %}
-            on
-          {% elif states("sensor.template_controllo_metro_l5") == "Regolare" %}
-            off
-          {% else %} ???
-          {% endif %}                
+      attributes:
+        image: /config/www/atm/m5.png
+            
 ###################################    AUTOMATION     #########################################       
 automation:
 - id: ' metro'
